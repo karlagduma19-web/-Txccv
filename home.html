@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Karssie’s World 💙</title>
+</head>
+<body>
+
+<div class="navbar">
+  <button onclick="go('dates.html')">Dates</button>
+  <button onclick="go('ourday.html')">Our Day</button>
+  <button onclick="go('futuregoals.html')">Future Goals</button>
+  <button onclick="go('songs.html')">Songs</button>
+</div>
+
+<div class="chat-container">
+  <!-- AI Chat -->
+  <div class="ai-chat">
+    <h3>Ask him anything💙</h3>
+    <textarea id="aiInput" placeholder="Ask about Karlo…"></textarea>
+    <button onclick="askAI()">Send</button>
+    <div id="aiReplies"></div>
+  </div>
+
+  <!-- User Chat -->
+  <div class="user-chat">
+    <h3>Karssie Chat 💬</h3>
+    <div id="messages"></div>
+    <input id="messageInput" placeholder="Type a message…">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Admin Media Upload -->
+<div id="adminPanel" style="display:none;">
+  <h3>Upload Media (Admin Only)</h3>
+  <input type="file" id="mediaFile">
+  <button onclick="uploadMedia()">Upload</button>
+</div>
+
+<script src="script.js"></script>
+<script src="heart.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+</html>
