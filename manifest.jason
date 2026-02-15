@@ -1,0 +1,9 @@
+{
+  "name": "Karssie’s World",
+  "short_name": "Karssie",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#1e3c72",
+  "theme_color": "#1e3c72",
+  "icons": []
+}
