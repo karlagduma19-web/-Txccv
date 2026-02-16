@@ -12,7 +12,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-mongoose.connect(process.env.MONGO_URI)
+// ✅ FIX 1: correct env variable name
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
@@ -20,7 +21,10 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ⚠️ keep this ONLY if your files are in /public
 app.use(express.static("public"));
+
 app.use("/uploads", express.static("uploads"));
 
 app.use(session({
@@ -45,7 +49,7 @@ const MessageSchema = new mongoose.Schema({
 
 const MediaSchema = new mongoose.Schema({
   path: String,
-  createdAt: { type: Date, default: Date.now, expires: 86400 } // 24h TTL
+  createdAt: { type: Date, default: Date.now, expires: 86400 }
 });
 
 const User = mongoose.model("User", UserSchema);
@@ -167,4 +171,9 @@ io.on("connection", socket => {
   });
 
 });
-server.listen(3000, () => console.log("Karssie’s World running on http://localhost:3000"));
+
+// ✅ FIX 2: dynamic port for Render
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log("Karssie’s World running on port " + PORT);
+});
